@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import { countries } from "../../data/countries"
 import type { SearchType } from "../../types"
 import Alert from "./Alert/Alert"
@@ -35,7 +35,7 @@ export default function Form() {
       onSubmit={handleSubmit}
     >
 
-      {alert && <Alert></Alert>}
+      {alert && <Alert>{alert}</Alert>}
       <div className={styles.field}>
         <label htmlFor="city">Ciudad</label>
         <input
