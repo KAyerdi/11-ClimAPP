@@ -12,7 +12,7 @@
   color: white;
 }
 
-@media (min-width: 768ox) {
+@media (min-width: 768px) {
   .container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
