@@ -9,6 +9,7 @@
   width: 95%;
   max-width: 100rem;
   margin: 0 auto;
+  color: white;
 }
 
 @media (min-width: 768ox) {
