@@ -10,7 +10,7 @@
   padding: 1rem;
   border: .3rem solid var(--white);
   background-color: rgba(255, 255, 255, 0.1); /* Fondo ligeramente opaco */
-  color: var(--white);
+  color: var(--primary);
   font-size: 1.8rem;
   font-weight: 400;
   border-radius: 1rem;
