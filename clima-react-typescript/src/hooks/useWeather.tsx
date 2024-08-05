@@ -1,7 +1,7 @@
 import axios from "axios"
+import { useMemo, useState } from "react"
 import { z } from "zod"
-import { SearchType} from "../types"
-import { useState } from "react"
+import { SearchType } from "../types"
 
 
 //TYPE GUARD o ASSERTIONS
@@ -40,61 +40,64 @@ export default function useWeather() {
     }
   })
 
+  const [loading, setLoading] = useState(false)
+
   const fetchWeather = async (search : SearchType) => {
-
-    const appId = import.meta.env.VITE_API_KEY
+    const appId = import.meta.env.VITE_API_KEY;
+    setLoading(true);
     try {
-        const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`
+      const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`;
 
-        const {data} = await axios(geoUrl)
-        const lat = data[0].lat
-        const lon = data[0].lon
+      const { data } = await axios(geoUrl);
+      const lat = data[0].lat;
+      const lon = data[0].lon;
 
-        //console.log(lat)
-        //console.log(lon)
+      //console.log(lat)
+      //console.log(lon)
 
-        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appId}`
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appId}`;
 
-        //const {data: weatherResult} = await axios<Weather>(weatherUrl)
-        //console.log(weatherResult.main.temp)
-        //console.log(weatherResult.main.temp_min)
-        //console.log(weatherResult.main.temp_max)
+      //const {data: weatherResult} = await axios<Weather>(weatherUrl)
+      //console.log(weatherResult.main.temp)
+      //console.log(weatherResult.main.temp_min)
+      //console.log(weatherResult.main.temp_max)
 
-        //Castear el type
-        //const {data: weatherResult} = await axios(weatherUrl)
-        //console.log(weatherResult.temp)
-        //console.log(weatherResult.main.temp_min)
-        //console.log(weatherResult.main.temp_max)
+      //Castear el type
+      //const {data: weatherResult} = await axios(weatherUrl)
+      //console.log(weatherResult.temp)
+      //console.log(weatherResult.main.temp_min)
+      //console.log(weatherResult.main.temp_max)
 
+      //
+      //Type Guards
+      //const {data: weatherResult} = await axios(weatherUrl)
+      //const result = isWeatherResponse(weatherResult)
+      //if(result){
+      //  console.log(weatherResult.name)
+      //} else {
+      //  console.log('Respuesta mal formada')
+      //}
 
-        //
-        //Type Guards
-        //const {data: weatherResult} = await axios(weatherUrl)
-        //const result = isWeatherResponse(weatherResult)
-        //if(result){
-        //  console.log(weatherResult.name)
-        //} else {
-        //  console.log('Respuesta mal formada')
-        //}
-        
-
-        //ZOD
-        const {data: weatherResult} = await axios(weatherUrl)
-        const result = Weather.safeParse(weatherResult)
-        if(result.success) {
-          setWeather(result.data)
-        }
-
-
-
+      //ZOD
+      const { data: weatherResult } = await axios(weatherUrl);
+      const result = Weather.safeParse(weatherResult);
+      if (result.success) {
+        setWeather(result.data);
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
+
+  const hasWeatherData = useMemo(() => weather.name ,[weather])
 
 
   return {
     weather,
-    fetchWeather
+    loading,
+    fetchWeather,
+    hasWeatherData
   }
 }

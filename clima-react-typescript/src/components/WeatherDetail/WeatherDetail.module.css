@@ -1,0 +1,29 @@
+.container {
+  background-color: #f0f0f0; /* Fondo gris claro */
+  color: #000; /* Texto negro */
+  border-radius: 1rem; /* Bordes redondeados */
+  text-align: center; /* Alineación del texto al centro */
+  padding: 1rem; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde gris claro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para un mejor efecto visual */
+}
+
+.current {
+  font-size: 6rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.temperatures {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+}
+
+.temperatures p {
+  font-weight: 900;
+}
+
+.temperatures span {
+  font-weight: 400;
+}
